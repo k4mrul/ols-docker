@@ -21,18 +21,18 @@ RUN wget -O /usr/local/lsws/admin/misc/lsup.sh \
     chmod +x /usr/local/lsws/admin/misc/lsup.sh
 
 
-# RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
-# chmod +x wp-cli.phar && mv wp-cli.phar /usr/bin/wp \
-# && wp package install wp-cli/doctor-command:@stable --allow-root \
-# && mkdir -p /home/nobody/.wp-cli \
-# && mv ~/.wp-cli/packages /home/nobody/.wp-cli/ \
-# && chown -R nobody:nogroup /home/nobody/.wp-cli \
-# ln -s /usr/local/lsws/$PHP_VERSION/bin/php /usr/bin/php
-
-RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
-chmod +x wp-cli.phar && mv wp-cli.phar /usr/bin/wp && \
-wp package install wp-cli/doctor-command:@stable --allow-root && \
+RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
+&& chmod +x wp-cli.phar && mv wp-cli.phar /usr/bin/wp \
+&& ln -s /usr/local/lsws/$PHP_VERSION/bin/php /usr/bin/php \
+&& wp package install wp-cli/doctor-command:@stable --allow-root \
+&& mkdir -p /home/nobody/.wp-cli \
+&& mv ~/.wp-cli/packages /home/nobody/.wp-cli/ \
+&& chown -R nobody:nogroup /home/nobody/.wp-cli \
 ln -s /usr/local/lsws/$PHP_VERSION/bin/php /usr/bin/php
+
+# RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
+# chmod +x wp-cli.phar && mv wp-cli.phar /usr/bin/wp && \
+# ln -s /usr/local/lsws/$PHP_VERSION/bin/php /usr/bin/php
 
 # Install PHP extensions
 RUN wget -O - https://repo.litespeed.sh | sh
