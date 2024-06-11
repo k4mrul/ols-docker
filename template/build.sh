@@ -72,10 +72,26 @@ push_image(){
     fi
 }
 
+build_push_image(){
+    if [ -z "${1}" ] || [ -z "${2}" ]; then
+        help_message
+    else
+        echo "${1} ${2}"
+        if [ ! -z "${TAG}" ]; then
+            docker buildx build --build-arg OLS_VERSION=${1} --build-arg PHP_VERSION=${2} --file ./Dockerfile  --push --tag ${BUILDER}/${REPO}:${3} --platform=linux/arm64,linux/amd64 .
+        fi        
+        else 
+            docker buildx build --build-arg OLS_VERSION=${1} --build-arg PHP_VERSION=${2} --file ./Dockerfile  --push --tag ${BUILDER}/${REPO}:${1}-${2} --platform=linux/arm64,linux/amd64 .
+        fi
+    fi    
+}
+
+
 main(){
-    build_image ${OLS_VERSION} ${PHP_VERSION}
+    # build_image ${OLS_VERSION} ${PHP_VERSION}
     # test_image ${OLS_VERSION} ${PHP_VERSION}
-    push_image ${OLS_VERSION} ${PHP_VERSION} ${TAG}
+    build_push_image ${OLS_VERSION} ${PHP_VERSION}
+    # push_image ${OLS_VERSION} ${PHP_VERSION} ${TAG}
 }
 
 check_input ${1}
