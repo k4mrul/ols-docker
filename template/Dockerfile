@@ -27,7 +27,7 @@ ln -s /usr/local/lsws/$PHP_VERSION/bin/php /usr/bin/php
 RUN wget -O -  https://get.acme.sh | sh
 
 # Install PHP extensions using php-extension-installer
-COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
+COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/bin/
 RUN install-php-extensions gd xdebug
 
 
