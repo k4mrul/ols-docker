@@ -24,10 +24,8 @@ RUN if [ "$TARGETPLATFORM" = "linux/amd64" ]; then \
 RUN wget -O - https://repo.litespeed.sh | sh
 # RUN apt-get install mysql-client $PHP_VERSION-apcu $PHP_VERSION $PHP_VERSION-common $PHP_VERSION-mysql $PHP_VERSION-opcache \
 #     $PHP_VERSION-curl $PHP_VERSION-imagick $PHP_VERSION-intl -y
-# RUN apt-get install mysql-client $PHP_VERSION-apcu $PHP_VERSION $PHP_VERSION-common $PHP_VERSION-mysql $PHP_VERSION-opcache \
-#     $PHP_VERSION-curl $PHP_VERSION-imagick $PHP_VERSION-redis $PHP_VERSION-memcached $PHP_VERSION-intl -y
 RUN apt-get install mysql-client $PHP_VERSION-apcu $PHP_VERSION $PHP_VERSION-common $PHP_VERSION-mysql $PHP_VERSION-opcache \
-    $PHP_VERSION-curl $PHP_VERSION-imagick $PHP_VERSION-intl -y
+    $PHP_VERSION-curl $PHP_VERSION-imagick $PHP_VERSION-redis $PHP_VERSION-memcached $PHP_VERSION-intl -y
 
 RUN ["/bin/bash", "-c", "if [[ $PHP_VERSION == lsphp7* ]]; then apt-get install $PHP_VERSION-json -y; fi"]
 
@@ -53,8 +51,6 @@ RUN wget -O -  https://get.acme.sh | sh
 # Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
     && rm -rf /var/lib/apt/lists/*
-
-# RUN apt install php-redis php-memcached -y
 
 EXPOSE 7080
 ENV PATH="/usr/local/sbin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/bin"
