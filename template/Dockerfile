@@ -19,12 +19,12 @@ RUN wget -O /usr/local/lsws/admin/misc/lsup.sh \
 
 RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
     && chmod +x wp-cli.phar \
-    && mv wp-cli.phar /usr/local/bin/wp \
+    && mv wp-cli.phar /usr/bin/wp \
     && wp package install wp-cli/doctor-command:@stable --allow-root \
     && mkdir -p /home/root/.wp-cli \
     && mv ~/.wp-cli/packages /home/root/.wp-cli/ \
     && chown -R root:root /home/root/.wp-cli \
-	&& ln -s /usr/local/lsws/$PHP_VERSION/bin/php /usr/local/bin/wp
+	&& ln -s /usr/local/lsws/$PHP_VERSION/bin/php /usr/bin/php
 
 RUN wget -O -  https://get.acme.sh | sh
 
