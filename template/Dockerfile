@@ -26,7 +26,7 @@ ln -s /usr/local/lsws/$PHP_VERSION/bin/php /usr/bin/php
 
 # Install PHP extensions
 RUN wget -O - https://repo.litespeed.sh | sh
-RUN apt install $PHP_VERSION-acpu $PHP_VERSION-opcache
+RUN apt install $PHP_VERSION-apcu $PHP_VERSION-opcache
 
 RUN wget -O -  https://get.acme.sh | sh
 
