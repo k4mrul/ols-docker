@@ -9,7 +9,10 @@ RUN wget https://openlitespeed.org/packages/openlitespeed-$OLS_VERSION.tgz && \
     tar xzf openlitespeed-$OLS_VERSION.tgz && cd openlitespeed && ./install.sh && \
     echo 'cloud-docker' > /usr/local/lsws/PLAT && rm -rf /openlitespeed && rm /openlitespeed-$OLS_VERSION.tgz
 
-RUN apt-get install autoconf g++ ghostscript imagemagick unzip default-mysql-client linux-headers-generic libfreetype6 libicu-dev libssl-dev libjpeg-turbo8 libwebp-dev libpng-dev libzip-dev libssh2-1 git libgomp1 libssh2-1-dev lz4 libavif-dev libxpm4 lz4 $PHP_VERSION $PHP_VERSION-common $PHP_VERSION-mysql $PHP_VERSION-opcache $PHP_VERSION-curl $PHP_VERSION-imagick $PHP_VERSION-redis $PHP_VERSION-memcached $PHP_VERSION-intl -y
+# RUN apt-get install autoconf g++ ghostscript imagemagick unzip default-mysql-client linux-headers-generic libfreetype6 libicu-dev libssl-dev libjpeg-turbo8 libwebp-dev libpng-dev libzip-dev libssh2-1 git libgomp1 libssh2-1-dev lz4 libavif-dev libxpm4 lz4 $PHP_VERSION $PHP_VERSION-common $PHP_VERSION-mysql $PHP_VERSION-opcache $PHP_VERSION-curl $PHP_VERSION-imagick $PHP_VERSION-redis $PHP_VERSION-memcached $PHP_VERSION-intl -y
+
+RUN apt-get install mysql-client $PHP_VERSION $PHP_VERSION-common $PHP_VERSION-mysql $PHP_VERSION-opcache \
+    $PHP_VERSION-curl $PHP_VERSION-imagick $PHP_VERSION-redis $PHP_VERSION-memcached $PHP_VERSION-intl -y
 
 RUN ["/bin/bash", "-c", "if [[ $PHP_VERSION == lsphp7* ]]; then apt-get install $PHP_VERSION-json -y; fi"]
 
