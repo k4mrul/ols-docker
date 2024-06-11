@@ -78,9 +78,9 @@ build_push_image(){
     else
         echo "${1} ${2}"
         if [ ! -z "${TAG}" ]; then
-            docker buildx build --build-arg OLS_VERSION=${1} --build-arg PHP_VERSION=${2} --file ./Dockerfile --push --tag ${BUILDER}/${REPO}:${TAG} --platform=linux/arm64,linux/amd64 .
+            docker buildx build --build-arg OLS_VERSION=${1} --build-arg PHP_VERSION=${2} --file ./Dockerfile --push --tag ${BUILDER}/${REPO}:${TAG} --platform=linux/arm64 .
         else 
-            docker buildx build --build-arg OLS_VERSION=${1} --build-arg PHP_VERSION=${2} --file ./Dockerfile --push --tag ${BUILDER}/${REPO}:${1}-${2} --platform=linux/arm64,linux/amd64 .
+            docker buildx build --build-arg OLS_VERSION=${1} --build-arg PHP_VERSION=${2} --file ./Dockerfile --push --tag ${BUILDER}/${REPO}:${1}-${2} --platform=linux/arm64 .
         fi
     fi    
 }

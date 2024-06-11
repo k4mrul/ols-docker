@@ -23,7 +23,9 @@ RUN if [ "$TARGETPLATFORM" = "linux/amd64" ]; then \
 # Install PHP extensions
 RUN wget -O - https://repo.litespeed.sh | sh
 RUN apt-get install mysql-client $PHP_VERSION-apcu $PHP_VERSION $PHP_VERSION-common $PHP_VERSION-mysql $PHP_VERSION-opcache \
-    $PHP_VERSION-curl $PHP_VERSION-imagick $PHP_VERSION-redis $PHP_VERSION-memcached $PHP_VERSION-intl -y
+    $PHP_VERSION-curl $PHP_VERSION-imagick $PHP_VERSION-intl -y
+# RUN apt-get install mysql-client $PHP_VERSION-apcu $PHP_VERSION $PHP_VERSION-common $PHP_VERSION-mysql $PHP_VERSION-opcache \
+#     $PHP_VERSION-curl $PHP_VERSION-imagick $PHP_VERSION-redis $PHP_VERSION-memcached $PHP_VERSION-intl -y
 
 RUN ["/bin/bash", "-c", "if [[ $PHP_VERSION == lsphp7* ]]; then apt-get install $PHP_VERSION-json -y; fi"]
 
