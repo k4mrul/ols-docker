@@ -2,12 +2,20 @@ FROM ubuntu:22.04
 
 ARG OLS_VERSION
 ARG PHP_VERSION
+ARG TARGETPLATFORM
 
 RUN apt-get update && apt-get install wget curl cron tzdata -y
 
-RUN wget https://openlitespeed.org/packages/openlitespeed-$OLS_VERSION.tgz && \
-    tar xzf openlitespeed-$OLS_VERSION.tgz && cd openlitespeed && ./install.sh && \
-    echo 'cloud-docker' > /usr/local/lsws/PLAT && rm -rf /openlitespeed && rm /openlitespeed-$OLS_VERSION.tgz
+# RUN wget https://github.com/litespeedtech/openlitespeed/releases/download/v1.8.1/openlitespeed-$OLS_VERSION-x86_64-linux.tgz && \
+#     tar xzf openlitespeed-$OLS_VERSION.tgz && cd openlitespeed && ./install.sh && \
+#     echo 'cloud-docker' > /usr/local/lsws/PLAT && rm -rf /openlitespeed && rm /openlitespeed-$OLS_VERSION.tgz
+
+RUN if [ "$TARGETPLATFORM" = "linux/amd64" ]; then \
+    wget https://github.com/litespeedtech/openlitespeed/releases/download/v$OLS_VERSION/openlitespeed-$OLS_VERSION-x86_64-linux.tgz && tar xzf openlitespeed-$OLS_VERSION-x86_64-linux.tgz && cd openlitespeed && ./install.sh && cp ./admin/misc/lsup.sh /usr/local/lsws/admin/misc/lsup.sh && chmod +x /usr/local/lsws/admin/misc/lsup.sh && echo 'cloud-docker' > /usr/local/lsws/PLAT && rm -rf /openlitespeed && rm /openlitespeed-$OLS_VERSION-x86_64-linux.tgz; \
+  elif [ "$TARGETPLATFORM" = "linux/arm64" ]; then \
+    wget https://github.com/litespeedtech/openlitespeed/releases/download/v$OLS_VERSION/openlitespeed-$OLS_VERSION-aarch64-linux.tgz && tar xzf openlitespeed-$OLS_VERSION-aarch64-linux.tgz && cd openlitespeed && ./install.sh && cp ./admin/misc/lsup.sh /usr/local/lsws/admin/misc/lsup.sh && chmod +x /usr/local/lsws/admin/misc/lsup.sh && echo 'cloud-docker' > /usr/local/lsws/PLAT && rm -rf /openlitespeed && rm /openlitespeed-$OLS_VERSION-aarch64-linux.tgz; \
+  fi
+
 
 # RUN apt-get install autoconf g++ ghostscript imagemagick unzip default-mysql-client linux-headers-generic libfreetype6 libicu-dev libssl-dev libjpeg-turbo8 libwebp-dev libpng-dev libzip-dev libssh2-1 git libgomp1 libssh2-1-dev lz4 libavif-dev libxpm4 lz4 $PHP_VERSION $PHP_VERSION-common $PHP_VERSION-mysql $PHP_VERSION-opcache $PHP_VERSION-curl $PHP_VERSION-imagick $PHP_VERSION-redis $PHP_VERSION-memcached $PHP_VERSION-intl -y
 
@@ -16,9 +24,9 @@ RUN apt-get install mysql-client $PHP_VERSION $PHP_VERSION-common $PHP_VERSION-m
 
 RUN ["/bin/bash", "-c", "if [[ $PHP_VERSION == lsphp7* ]]; then apt-get install $PHP_VERSION-json -y; fi"]
 
-RUN wget -O /usr/local/lsws/admin/misc/lsup.sh \
-    https://raw.githubusercontent.com/litespeedtech/openlitespeed/master/dist/admin/misc/lsup.sh && \
-    chmod +x /usr/local/lsws/admin/misc/lsup.sh
+# RUN wget -O /usr/local/lsws/admin/misc/lsup.sh \
+#     https://raw.githubusercontent.com/litespeedtech/openlitespeed/master/dist/admin/misc/lsup.sh && \
+#     chmod +x /usr/local/lsws/admin/misc/lsup.sh
 
 
 RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
