@@ -17,9 +17,12 @@ RUN if [ "$TARGETPLATFORM" = "linux/amd64" ]; then \
   fi
 
 
+
 # RUN apt-get install autoconf g++ ghostscript imagemagick unzip default-mysql-client linux-headers-generic libfreetype6 libicu-dev libssl-dev libjpeg-turbo8 libwebp-dev libpng-dev libzip-dev libssh2-1 git libgomp1 libssh2-1-dev lz4 libavif-dev libxpm4 lz4 $PHP_VERSION $PHP_VERSION-common $PHP_VERSION-mysql $PHP_VERSION-opcache $PHP_VERSION-curl $PHP_VERSION-imagick $PHP_VERSION-redis $PHP_VERSION-memcached $PHP_VERSION-intl -y
 
-RUN apt-get install mysql-client $PHP_VERSION $PHP_VERSION-common $PHP_VERSION-mysql $PHP_VERSION-opcache \
+# Install PHP extensions
+RUN wget -O - https://repo.litespeed.sh | sh
+RUN apt-get install mysql-client $PHP_VERSION-apcu $PHP_VERSION $PHP_VERSION-common $PHP_VERSION-mysql $PHP_VERSION-opcache \
     $PHP_VERSION-curl $PHP_VERSION-imagick $PHP_VERSION-redis $PHP_VERSION-memcached $PHP_VERSION-intl -y
 
 RUN ["/bin/bash", "-c", "if [[ $PHP_VERSION == lsphp7* ]]; then apt-get install $PHP_VERSION-json -y; fi"]
@@ -40,10 +43,6 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
 # RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
 # chmod +x wp-cli.phar && mv wp-cli.phar /usr/bin/wp && \
 # ln -s /usr/local/lsws/$PHP_VERSION/bin/php /usr/bin/php
-
-# Install PHP extensions
-# RUN wget -O - https://repo.litespeed.sh | sh
-# RUN apt-get install $PHP_VERSION-apcu $PHP_VERSION-opcache -y
 
 RUN wget -O -  https://get.acme.sh | sh
 
