@@ -27,11 +27,8 @@ ln -s /usr/local/lsws/$PHP_VERSION/bin/php /usr/bin/php
 RUN wget -O -  https://get.acme.sh | sh
 
 # Install PHP extensions using php-extension-installer
-RUN curl -sSLf \
-    -o /usr/local/bin/install-php-extensions \
-    https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions && \
-    chmod +x /usr/local/bin/install-php-extensions && \
-    install-php-extensions gd xdebug
+COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
+RUN install-php-extensions gd xdebug
 
 
 # Composer
