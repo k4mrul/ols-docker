@@ -24,7 +24,7 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
     && mkdir -p /home/root/.wp-cli \
     && mv ~/.wp-cli/packages /home/root/.wp-cli/ \
     && chown -R root:root /home/root/.wp-cli \
-	&& ln -s /usr/local/lsws/$PHP_VERSION/bin/php /usr/bin/php
+	&& ln -s /usr/local/lsws/$PHP_VERSION/bin/php /usr/local/bin/wp
 
 RUN wget -O -  https://get.acme.sh | sh
 
