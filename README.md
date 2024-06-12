@@ -4,7 +4,7 @@
 [<img src="https://img.shields.io/badge/slack-LiteSpeed-blue.svg?logo=slack">](litespeedtech.com/slack) 
 [<img src="https://img.shields.io/twitter/follow/litespeedtech.svg?label=Follow&style=social">](https://twitter.com/litespeedtech)
 
-Install a lightweight OpenLiteSpeed container using either the Edge or Stable version in Ubuntu 22.04 Linux.
+Install a lightweight OpenLiteSpeed container using either the Edge or Stable version in Ubuntu 22.04 Linux for amd64 and arm64
 
 ### Prerequisites
 *  [Install Docker](https://www.docker.com/)
@@ -20,21 +20,23 @@ The system will regulary build both OpenLiteSpeed Edge and Latest stable version
 
 ## Usage
 ### Download an image
-Download the openlitespeed image, we can use latest for latest version
+Download the openlitespeed image:
+Supported tags
 ```
-docker pull litespeedtech/openlitespeed:latest
+1.8.1-lsphp82
+1.8.1-lsphp74
+1.8.1-lsphp81
 ```
-or specify the OpenLiteSpeed version with lsphp version
 ```
-docker pull litespeedtech/openlitespeed:1.7.16-lsphp81
+docker pull k4mrul/ols:1.8.1-lsphp82
 ```
 ### Start a Container
 ```
-docker run --name openlitespeed -p 7080:7080 -p 80:80 -p 443:443 -it litespeedtech/openlitespeed:latest
+docker run --name openlitespeed -p 7080:7080 -p 80:80 -p 443:443 -it k4mrul/ols:1.8.1-lsphp82
 ```
 You can also run with Detached mode, like so:
 ```
-docker run -d --name openlitespeed -p 7080:7080 -p 80:80 -p 443:443 -it litespeedtech/openlitespeed:latest
+docker run -d --name openlitespeed -p 7080:7080 -p 80:80 -p 443:443 -it k4mrul/ols:1.8.1-lsphp82
 ```
 Tip, you can get rid of `-p 7080:7080` from the command if you don’t need the web admin access.  
 
