@@ -4,7 +4,7 @@ ARG OLS_VERSION
 ARG PHP_VERSION
 ARG TARGETPLATFORM
 
-RUN apt-get update && apt-get install wget curl cron tzdata -y
+RUN apt-get update && apt-get install wget curl cron unzip tzdata -y
 
 # RUN wget https://github.com/litespeedtech/openlitespeed/releases/download/v1.8.1/openlitespeed-$OLS_VERSION-x86_64-linux.tgz && \
 #     tar xzf openlitespeed-$OLS_VERSION.tgz && cd openlitespeed && ./install.sh && \
