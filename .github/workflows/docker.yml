@@ -16,10 +16,9 @@ jobs:
     strategy:
       matrix: 
         # PHP_VERSION: [lsphp74, lsphp80, lsphp81, lsphp82]
-        PHP_VERSION: [lsphp74, lsphp81, lsphp82]
-        # NOTE: We can't use lsphp83 since lsphp83 missing lsphp83-redis and lsphp83-memcache extension for ARM64. Check from this link whether they are available or not
+        # NOTE (deprecated): We can't use lsphp83 since lsphp83 missing lsphp83-redis and lsphp83-memcache extension for ARM64. Check from this link whether they are available or not
         # https://rpms.litespeedtech.com/debian/dists/jammy/main/binary-arm64/Packages
-        # PHP_VERSION: [lsphp83]
+        PHP_VERSION: [lsphp83]
         TAG: [latest]
     steps:
       - uses: actions/checkout@v2
